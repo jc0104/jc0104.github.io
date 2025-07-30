@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts封装展示 - 个人主页</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --accent: #e74c3c;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%233498db" opacity="0.1"/></svg>');
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--dark);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Charts Section */
+        .charts {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .chart-title {
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+        
+        .chart-wrapper {
+            height: 400px;
+            width: 100%;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+        
+        /* How it Works Section */
+        .how-it-works {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 25px;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .code-comment {
+            color: #75715e;
+        }
+        
+        .code-keyword {
+            color: #f92672;
+        }
+        
+        .code-function {
+            color: #66d9ef;
+        }
+        
+        .code-string {
+            color: #e6db74;
+        }
+        
+        .code-param {
+            color: #fd971f;
+        }
+        
+        .code-var {
+            color: #a6e22e;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin: 0 10px;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <span>DataVizPro</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#features">特性</a></li>
+                    <li><a href="#charts">图表</a></li>
+                    <li><a href="#how-it-works">实现原理</a></li>
+                    <li><a href="#contact">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>ECharts高级封装方案</h1>
+            <p>通过参数化配置实现快速图表渲染，简化数据可视化开发流程，提升开发效率。只需简单传递参数，即可生成各种类型的交互式图表。</p>
+            <button class="cta-button">查看示例</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">核心特性</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>参数化配置</h3>
+                    <p>通过简单的JSON配置对象即可生成各种图表，无需编写复杂的ECharts配置代码。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>动态更新</h3>
+                    <p>支持图表数据的动态更新和刷新，实时反映数据变化。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>响应式设计</h3>
+                    <p>图表自动适应不同屏幕尺寸，在移动设备和桌面设备上均有良好表现。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts" id="charts">
+        <div class="container">
+            <h2 class="section-title">图表展示</h2>
+            
+            <div class="chart-grid">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">销售数据柱状图</h3>
+                    </div>
+                    <div class="chart-wrapper" id="chart1"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">用户分布饼图</h3>
+                    </div>
+                    <div class="chart-wrapper" id="chart2"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">月度趋势折线图</h3>
+                    </div>
+                    <div class="chart-wrapper" id="chart3"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">产品指标雷达图</h3>
+                    </div>
+                    <div class="chart-wrapper" id="chart4"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">实现原理</h2>
+            <p>以下是我们封装的ECharts组件核心代码，通过简单参数配置即可生成图表：</p>
+            
+            <div class="code-container">
+                <pre><code><span class="code-comment">/**
+ * 渲染ECharts图表
+ * @param {string} containerId - 图表容器元素ID
+ * @param {string} chartType - 图表类型 (bar, line, pie, radar, etc.)
+ * @param {object} data - 图表数据
+ * @param {object} options - 额外配置选项
+ */</span>
+<span class="code-keyword">function</span> <span class="code-function">renderChart</span>(containerId, chartType, data, options = {}) {
+    <span class="code-comment">// 初始化图表实例</span>
+    <span class="code-keyword">const</span> <span class="code-var">chart</span> = echarts.init(document.getElementById(containerId));
+    
+    <span class="code-comment">// 基础配置</span>
+    <span class="code-keyword">const</span> <span class="code-var">baseConfig</span> = {
+        <span class="code-param">tooltip</span>: {
+            <span class="code-param">trigger</span>: <span class="code-string">'item'</span>
+        },
+        <span class="code-param">toolbox</span>: {
+            <span class="code-param">feature</span>: {
+                <span class="code-param">saveAsImage</span>: {}
+            }
+        },
+        <span class="code-param">grid</span>: {
+            <span class="code-param">left</span>: <span class="code-string">'3%'</span>,
+            <span class="code-param">right</span>: <span class="code-string">'4%'</span>,
+            <span class="code-param">bottom</span>: <span class="code-string">'3%'</span>,
+            <span class="code-param">containLabel</span>: <span class="code-keyword">true</span>
+        }
+    };
+    
+    <span class="code-comment">// 根据图表类型添加特定配置</span>
+    <span class="code-keyword">let</span> <span class="code-var">typeConfig</span> = {};
+    
+    <span class="code-keyword">switch</span> (chartType) {
+        <span class="code-keyword">case</span> <span class="code-string">'bar'</span>:
+            typeConfig = {
+                <span class="code-param">xAxis</span>: {
+                    <span class="code-param">type</span>: <span class="code-string">'category'</span>,
+                    <span class="code-param">data</span>: data.categories
+                },
+                <span class="code-param">yAxis</span>: {
+                    <span class="code-param">type</span>: <span class="code-string">'value'</span>
+                },
+                <span class="code-param">series</span>: [{
+                    <span class="code-param">type</span>: <span class="code-string">'bar'</span>,
+                    <span class="code-param">data</span>: data.values
+                }]
+            };
+            <span class="code-keyword">break</span>;
+            
+        <span class="code-keyword">case</span> <span class="code-string">'line'</span>:
+            typeConfig = {
+                <span class="code-param">xAxis</span>: {
+                    <span class="code-param">type</span>: <span class="code-string">'category'</span>,
+                    <span class="code-param">data</span>: data.categories
+                },
+                <span class="code-param">yAxis</span>: {
+                    <span class="code-param">type</span>: <span class="code-string">'value'</span>
+                },
+                <span class="code-param">series</span>: [{
+                    <span class="code-param">type</span>: <span class="code-string">'line'</span>,
+                    <span class="code-param">data</span>: data.values,
+                    <span class="code-param">smooth</span>: <span class="code-keyword">true</span>
+                }]
+            };
+            <span class="code-keyword">break</span>;
+            
+        <span class="code-keyword">case</span> <span class="code-string">'pie'</span>:
+            typeConfig = {
+                <span class="code-param">series</span>: [{
+                    <span class="code-param">type</span>: <span class="code-string">'pie'</span>,
+                    <span class="code-param">radius</span>: <span class="code-string">'50%'</span>,
+                    <span class="code-param">data</span>: data.items,
+                    <span class="code-param">emphasis</span>: {
+                        <span class="code-param">itemStyle</span>: {
+                            <span class="code-param">shadowBlur</span>: 10,
+                            <span class="code-param">shadowOffsetX</span>: 0,
+                            <span class="code-param">shadowColor</span>: <span class="code-string">'rgba(0, 0, 0, 0.5)'</span>
+                        }
+                    }
+                }]
+            };
+            <span class="code-keyword">break</span>;
+            
+        <span class="code-keyword">case</span> <span class="code-string">'radar'</span>:
+            typeConfig = {
+                <span class="code-param">radar</span>: {
+                    <span class="code-param">indicator</span>: data.indicators
+                },
+                <span class="code-param">series</span>: [{
+                    <span class="code-param">type</span>: <span class="code-string">'radar'</span>,
+                    <span class="code-param">data</span>: data.values
+                }]
+            };
+            <span class="code-keyword">break</span>;
+    }
+    
+    <span class="code-comment">// 合并配置</span>
+    <span class="code-keyword">const</span> <span class="code-var">finalConfig</span> = {
+        ...baseConfig,
+        ...typeConfig,
+        ...options,
+        <span class="code-param">title</span>: {
+            <span class="code-param">text</span>: options.title || <span class="code-string">''</span>,
+            <span class="code-param">left</span>: <span class="code-string">'center'</span>
+        },
+        <span class="code-param">legend</span>: {
+            <span class="code-param">orient</span>: <span class="code-string">'horizontal'</span>,
+            <span class="code-param">bottom</span>: <span class="code-string">'bottom'</span>
+        }
+    };
+    
+    <span class="code-comment">// 应用配置并渲染图表</span>
+    chart.setOption(finalConfig);
+    
+    <span class="code-comment">// 响应窗口大小变化</span>
+    window.addEventListener(<span class="code-string">'resize'</span>, () => {
+        chart.resize();
+    });
+    
+    <span class="code-keyword">return</span> chart;
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <h3>ECharts高级封装方案</h3>
+            <p>简化数据可视化开发流程，提高开发效率</p>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-codepen"></i></a>
+            </div>
+            
+            <p>&copy; 2023 ECharts封装方案 | 个人项目展示</p>
+        </div>
+    </footer>
+
+    <script>
+        // 封装好的ECharts渲染函数
+        function renderChart(containerId, chartType, data, options = {}) {
+            const chart = echarts.init(document.getElementById(containerId));
+            
+            // 基础配置
+            const baseConfig = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                }
+            };
+            
+            // 根据图表类型添加特定配置
+            let typeConfig = {};
+            
+            switch (chartType) {
+                case 'bar':
+                    typeConfig = {
+                        xAxis: {
+                            type: 'category',
+                            data: data.categories
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [{
+                            type: 'bar',
+                            data: data.values,
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    { offset: 0, color: '#83bff6' },
+                                    { offset: 0.5, color: '#188df0' },
+                                    { offset: 1, color: '#188df0' }
+                                ])
+                            }
+                        }]
+                    };
+                    break;
+                    
+                case 'line':
+                    typeConfig = {
+                        xAxis: {
+                            type: 'category',
+                            data: data.categories
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [{
+                            type: 'line',
+                            data: data.values,
+                            smooth: true,
+                            lineStyle: {
+                                width: 4,
+                                color: '#2ecc71'
+                            },
+                            itemStyle: {
+                                color: '#2ecc71'
+                            }
+                        }]
+                    };
+                    break;
+                    
+                case 'pie':
+                    typeConfig = {
+                        series: [{
+                            type: 'pie',
+                            radius: '50%',
+                            data: data.items,
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            },
+                            label: {
+                                formatter: '{b}: {c} ({d}%)'
+                            }
+                        }]
+                    };
+                    break;
+                    
+                case 'radar':
+                    typeConfig = {
+                        radar: {
+                            indicator: data.indicators,
+                            shape: 'circle',
+                            splitNumber: 5,
+                            axisName: {
+                                color: '#fff',
+                                backgroundColor: '#666',
+                                borderRadius: 3,
+                                padding: [3, 5]
+                            }
+                        },
+                        series: [{
+                            type: 'radar',
+                            data: data.values,
+                            areaStyle: {
+                                color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
+                                    { offset: 0, color: 'rgba(231, 76, 60, 0.8)' },
+                                    { offset: 1, color: 'rgba(231, 76, 60, 0.2)' }
+                                ])
+                            }
+                        }]
+                    };
+                    break;
+            }
+            
+            // 合并配置
+            const finalConfig = {
+                ...baseConfig,
+                ...typeConfig,
+                ...options,
+                title: {
+                    text: options.title || '',
+                    left: 'center',
+                    textStyle: {
+                        fontSize: 18
+                    }
+                },
+                legend: {
+                    orient: 'horizontal',
+                    bottom: 'bottom'
+                }
+            };
+            
+            // 应用配置并渲染图表
+            chart.setOption(finalConfig);
+            
+            // 响应窗口大小变化
+            window.addEventListener('resize', () => {
+                chart.resize();
+            });
+            
+            return chart;
+        }
+        
+        // 页面加载完成后渲染图表
+        $(document).ready(function() {
+            // 图表1：柱状图
+            renderChart('chart1', 'bar', {
+                categories: ['产品A', '产品B', '产品C', '产品D', '产品E'],
+                values: [120, 200, 150, 80, 70]
+            }, {
+                title: '产品销售额统计'
+            });
+            
+            // 图表2：饼图
+            renderChart('chart2', 'pie', {
+                items: [
+                    { value: 335, name: '华东地区' },
+                    { value: 310, name: '华南地区' },
+                    { value: 234, name: '华北地区' },
+                    { value: 135, name: '西部地区' },
+                    { value: 1548, name: '中部地区' }
+                ]
+            }, {
+                title: '用户地区分布'
+            });
+            
+            // 图表3：折线图
+            renderChart('chart3', 'line', {
+                categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
+                values: [820, 932, 901, 934, 1290, 1330, 1320]
+            }, {
+                title: '月度销售趋势'
+            });
+            
+            // 图表4：雷达图
+            renderChart('chart4', 'radar', {
+                indicators: [
+                    { name: '易用性', max: 100 },
+                    { name: '功能性', max: 100 },
+                    { name: '兼容性', max: 100 },
+                    { name: '安全性', max: 100 },
+                    { name: '性能', max: 100 }
+                ],
+                values: [
+                    {
+                        value: [90, 85, 70, 95, 80],
+                        name: '产品A'
+                    },
+                    {
+                        value: [75, 95, 85, 80, 90],
+                        name: '产品B'
+                    }
+                ]
+            }, {
+                title: '产品指标对比'
+            });
+        });
+    </script>
+</body>
+</html>

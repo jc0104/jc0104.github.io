@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>YT-ChartX</title>
+    <meta charset='utf-8'>
+    <meta name='renderer' content='webkit'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='viewport'
+        content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+    <script src='../../public/jquery/jquery-3.6.0.min.js'></script>
+    <script src='../../public/public.js'></script>
+</head>
+
+<body>
+    <div id="eDiv1" class="echartsdiv"></div>
+    <div id="eDiv2" class="echartsdiv"></div>
+    <div id="eDiv3" class="echartsdiv"></div>
+    <div id="eDiv4" class="echartsdiv"></div>
+    <div id="eDiv5" class="echartsdiv"></div>
+</body>
+<script>
+    css = [
+        "page/test/test1.css",
+        "page/test/test2.css"
+    ];
+    scripts = [
+        "page/test/test1.js",
+        "page/test/test2.js",
+        "page/test/test3.js",
+        "public/yt_chartx.js"
+    ];
+
+
+    loadPage(function () {
+        // ytchartx();
+        // SN="44444"
+        // alert(sysname)
+
+        var ePath=web_url + 'public/echarts/';
+        var eApiUrl=web_url + 'data/echarts/';
+
+        var echartsSetInfo = {
+            "epaths": { 
+                        'echarts.4.2.1': ePath + 'echarts.4.2.1',
+                        'echarts.5.0.2': ePath + 'echarts.5.0.2',
+                        'echarts.5.1.2': ePath + 'echarts.5.1.2',
+                        'echarts.5.5.0': ePath + 'echarts.5.5.0'
+                      },
+            "version": "5.5.0",
+            "eDivID": "eDiv1",
+            "setAPI": { "url": eApiUrl + "template/base/1.json", "params": null, "type": "get", "IsAsync": true },
+            "dataAPI": { "url": eApiUrl + "data/bar/bar_1_data.json", "params": null, "type": "get", "IsAsync": true },
+            "dNames": ['name', 'value'],
+            "snList": [],
+            "stList": ['bar']
+        }
+
+
+
+        var eSetInfo1 = JSON.parse(JSON.stringify(echartsSetInfo));
+        showEcharts(eSetInfo1,
+            function (option) {
+                option.tooltip.formatter = "{b}<br/>示例1：{c0}"
+                option.legend.show = false;
+            },
+            function (myChart) {
+                myChart.on('click', (params) => {
+                    console.log(params);
+                    alert(params.name + "\r\n" + params.value)
+                })
+            }
+        )
+
+
+
+        var eSetInfo2 = JSON.parse(JSON.stringify(echartsSetInfo));
+        eSetInfo2.version = "5.1.2"
+        eSetInfo2.eDivID = "eDiv2"
+        eSetInfo2.dataAPI.url = eApiUrl + "data/line/line_1_data.json"
+        eSetInfo2.stList = ['line']
+        showEcharts(eSetInfo2,
+            function (option) {
+                option.tooltip.formatter = "{b}<br/>示例1：{c0}"
+                option.legend.show = false;
+                option.xAxis[0].boundaryGap = false;
+            },
+            function (myChart) {
+                myChart.on('click', (params) => {
+                    console.log(params);
+                    alert(params.name + "\r\n" + params.value)
+                })
+            }
+        )
+
+
+
+        var eSetInfo3 = JSON.parse(JSON.stringify(echartsSetInfo));
+        eSetInfo3.eDivID = "eDiv3"
+        eSetInfo3.dataAPI.url = eApiUrl + "data/base/base_1_data.json"
+        eSetInfo3.dNames = ['name', 'value', 'value1', 'value2']
+        eSetInfo3.snList = ['示例1', '示例2', '示例3']
+        eSetInfo3.stList = ['bar', 'line', 'bar']
+        showEcharts(eSetInfo3,
+            function (option) {
+                option.tooltip.formatter = "{b}<br/>{a0}：{c0}<br/>{a1}：{c1}<br/>{a2}：{c2}"
+                option.series[1].areaStyle = null
+                option.series[1].symbolSize = 20
+                option.series[1].label.position = "bottom"
+                option.series[1].label.textStyle.color = "#00BF1f"
+                option.yAxis[0].splitLine.lineStyle.width = 1
+                option.color = ["#37A2FF", "#FF0087", "#FFBF00"]
+            },
+            function (myChart) {
+                myChart.on('click', (params) => {
+                    console.log(params);
+                    alert(params.name + "\r\n" + params.value)
+                })
+            }
+        )
+
+
+
+        var eSetInfo4 = JSON.parse(JSON.stringify(echartsSetInfo));
+        eSetInfo4.eDivID = "eDiv4"
+        eSetInfo4.setAPI.url = eApiUrl + "template/base/2.json"
+        eSetInfo4.dataAPI.url = eApiUrl + "data/pie/pie_1_data.json"
+        eSetInfo4.stList = ['pie']
+        showEcharts(eSetInfo4,
+            function (option) {
+                option.tooltip.formatter = "{b}<br/>示例1：{c0}"
+            },
+            function (myChart) {
+                myChart.on('click', (params) => {
+                    console.log(params);
+                    alert(params.name + "\r\n" + params.value)
+                })
+            }
+        )
+
+
+
+        var eSetInfo5 = JSON.parse(JSON.stringify(echartsSetInfo));
+        eSetInfo5.eDivID = "eDiv5"
+        eSetInfo5.setAPI.url = eApiUrl + "template/base/2.json"
+        eSetInfo5.dataAPI.url = eApiUrl + "data/pie/pie_1_data.json"
+        eSetInfo5.stList = ['pie']
+        showEcharts(eSetInfo5,
+            function (option) {
+                option.tooltip.formatter = "{b}<br/>示例1：{c0}"
+            },
+            function (myChart) {
+                myChart.on('click', (params) => {
+                    console.log(params);
+                    alert(params.name + "\r\n" + params.value)
+                })
+            }
+        )
+
+    });
+</script>
+
+</html>

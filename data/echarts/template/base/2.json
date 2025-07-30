@@ -1,0 +1,113 @@
+{
+  "readme": "基础图表（饼图pie）",
+  "title": [
+    {
+      "text": "",
+      "subtext": "",
+      "left": "left",
+      "top": "top",
+      "textStyle": {
+        "color": "#ffffff",
+        "fontSize": 20,
+        "fontFamily": "PingfangRegular"
+      }
+    }
+  ],
+  "tooltip": {
+    "trigger": "item",
+    "backgroundColor": "rgba(0, 0, 0, 0.5)",
+    "borderColor": "#ffffff",
+    "borderRadius": 4,
+    "padding": [
+      5,
+      10
+    ],
+    "textStyle": {
+      "color": "#ffffff",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "fontSize": 20
+    },
+    "formatter": "{a}<br/>{b}：{c}({d}%)"
+  },
+  "legend": [
+    {
+      "show": true,
+      "orient": "vertical",
+      "left": "right",
+      "top": "middle",
+      "align": "left",
+      "padding": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "bottom": 0,
+      "textStyle": {
+        "color": "#ffffff",
+        "fontSize": 20,
+        "fontFamily": "PingfangRegular"
+      }
+    }
+  ],
+  "grid": {
+    "show": false,
+    "top": 60,
+    "bottom": 60,
+    "right": 30,
+    "left": 80
+  },
+  "series": [
+    {
+      "name": "",
+      "data": [],
+      "type": "",
+      "radius": [
+        "40%",
+        "70%"
+      ],
+      "avoidLabelOverlap": true,
+      "smooth": true,
+      "itemStyle": {
+        "borderRadius": 5,
+        "borderColor": "#001e4a",
+        "borderWidth": 0
+      },
+      "padAngle": 1.04,
+      "label": {
+        "show": true,
+        "textStyle": {
+          "color": "#ffffff",
+          "fontSize": 20,
+          "fontFamily": "PingfangRegular"
+        }
+      },
+      "labelLine": {
+        "show": true,
+        "length": 100,
+        "length2": 100,
+        "smooth": 0.2,
+        "lineStyle": {
+          "width": 3
+        }
+      }
+    }
+  ],
+  "color": [
+    "#5470c6",
+    "#91cc75",
+    "#fac858",
+    "#ee6666",
+    "#73c0de",
+    "#3ba272",
+    "#fc8452",
+    "#9a60b4",
+    "#ea7ccc",
+    "#80FFA5",
+    "#00DDFF",
+    "#37A2FF",
+    "#FF0087",
+    "#FFBF00"
+  ]
+}
