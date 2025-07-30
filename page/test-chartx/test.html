@@ -55,7 +55,7 @@
 
         var eSetInfo2 = JSON.parse(JSON.stringify(echartsSetInfo));
         eSetInfo2.version = "5.1.2"
-        eSetInfo2.dataAPI.url = webUrl + "data/line/line_1_data.json"
+        eSetInfo2.dataAPI.url = chartxUrl + "data/line/line_1_data.json"
         eSetInfo2.stList = ['line']
         eSetInfo2.eDivID = "eDiv2"
         showEcharts(eSetInfo2,
@@ -75,7 +75,7 @@
 
 
         var eSetInfo3 = JSON.parse(JSON.stringify(echartsSetInfo));
-        eSetInfo3.dataAPI.url = webUrl + "data/base/base_1_data.json"
+        eSetInfo3.dataAPI.url = chartxUrl + "data/base/base_1_data.json"
         eSetInfo3.dNames = ['name', 'value', 'value1', 'value2']
         eSetInfo3.snList = ['示例1', '示例2', '示例3']
         eSetInfo3.stList = ['bar', 'line', 'bar']
@@ -101,8 +101,8 @@
 
 
         var eSetInfo4 = JSON.parse(JSON.stringify(echartsSetInfo));
-        eSetInfo4.setAPI.url = webUrl + "template/base/2.json"
-        eSetInfo4.dataAPI.url = webUrl + "data/pie/pie_1_data.json"
+        eSetInfo4.setAPI.url = chartxUrl + "template/base/2.json"
+        eSetInfo4.dataAPI.url = chartxUrl + "data/pie/pie_1_data.json"
         eSetInfo4.stList = ['pie']
         eSetInfo4.eDivID = "eDiv4"
         showEcharts(eSetInfo4,
@@ -120,8 +120,8 @@
 
 
         var eSetInfo5 = JSON.parse(JSON.stringify(echartsSetInfo));
-        eSetInfo5.setAPI.url = webUrl + "template/base/2.json"
-        eSetInfo5.dataAPI.url = webUrl + "data/pie/pie_1_data.json"
+        eSetInfo5.setAPI.url = chartxUrl + "template/base/2.json"
+        eSetInfo5.dataAPI.url = chartxUrl + "data/pie/pie_1_data.json"
         eSetInfo5.stList = ['pie']
         eSetInfo5.eDivID = "eDiv5"
         showEcharts(eSetInfo5,
