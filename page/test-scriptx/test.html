@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>YT-ScriptX</title>
+    <meta charset='utf-8'>
+    <meta name='renderer' content='webkit'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='viewport'
+        content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+    <script src='https://jc0104.github.io/YT-ScriptX/script/jquery/jquery-3.6.0.min.js'></script>
+    <script src='https://jc0104.github.io/YT-ScriptX/scriptx.js'></script>
+</head>
+
+<body>
+    <div id="eDiv1" class="echartsdiv">
+        1、loadPage(callback)   <br/>页面加载<br/><br/>
+
+        2、loadJS(scripts, callback, loadJStype)    <br/>动态加载js脚本<br/><br/>
+
+        3、loadCSS(css, themeId, callback)  <br/>动态加载css<br/><br/>
+
+        4、mergeUnique(...arrays)       <br/>多个一维数组合并去重<br/><br/>
+
+        5、IsNull(Stra)   <br/>判断字符串是否为空或null或undefined，是返回"",否返回原字符串<br/><br/>
+    </div>
+</body>
+<script>
+    webUrl+="page/test-scriptx/"
+    css = [
+        webUrl+"test1.css",
+        webUrl+"test2.css"
+    ];
+    scripts = [
+        webUrl+"test1.js",
+        webUrl+"test2.js"
+    ];
+
+    loadPage(function () {
+        SN="【脚本中心】"
+        console.log(SN)
+        // a();
+    });
+</script>
+
+</html>
