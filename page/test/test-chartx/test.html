@@ -20,15 +20,15 @@
     <div id="eDiv5" class="echartsdiv"></div>
 </body>
 <script>
+    if(host.split(":")[0]=="127.0.0.1"){
+        chartxUrl="https://127.0.0.1:7443/yt_chartx/"
+    }
     css = [
-        webUrl+"page/test-chartx/test1.css"
+        webUrl+"page/test/test-chartx/test1.css"
     ];
     scripts = [
-        // webUrl+"chartx.js"
+        // chartxUrl+"chartx.js"
     ];
-    if(host.split(":")[0]=="127.0.0.1"){
-        chartxUrl="https://127.0.0.1:7443/"
-    }
 
     loadPage(function () {
         echartsSetInfo.setAPI.url = chartxUrl + "template/base/1.json"

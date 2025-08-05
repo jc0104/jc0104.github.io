@@ -1,19 +1,7 @@
 /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
-var host = window.location.host
-var protocol = window.location.protocol;
-var webUrl = protocol + "//" + host + "/";
-//初始化页面加载公共css样式
-var initCss = [
-    "public/style/public.css",
-    "public/layui/layui/css/layui.css",
-    "public/style/icons/font-awesome.min.css"
-];
-//初始化页面加载公共js脚本
-var initScripts = [
-    "public/sysinfo.js",
-    "public/jquery/require/require.min.js",
-    "public/layui/layui/layui.js"
-];
+
+
+
 
 
 
