@@ -200,6 +200,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 0; /* 初始无上边距 */
             z-index: 1;
+            cursor: pointer;
         }
 
         /* 修复上浮遮挡问题 */
@@ -501,7 +502,7 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="card-header-text">
-                        <h2 class="card-title">报表中心</h2>
+                        <h2 class="card-title" url="page/test-chartx/test.html">报表中心</h2>
                         <div class="card-subtitle">YT-ChartX</div>
                     </div>
                 </div>
@@ -527,7 +528,7 @@
                         <i class="fas fa-list-alt"></i>
                     </div>
                     <div class="card-header-text">
-                        <h2 class="card-title">表单中心</h2>
+                        <h2 class="card-title" url="page/test-formx/test.html">表单中心</h2>
                         <div class="card-subtitle">YT-FormX</div>
                     </div>
                 </div>
@@ -553,7 +554,7 @@
                         <i class="fas fa-cube"></i>
                     </div>
                     <div class="card-header-text">
-                        <h2 class="card-title">组件中心</h2>
+                        <h2 class="card-title" url="page/test-toolx/test.html">组件中心</h2>
                         <div class="card-subtitle">YT-ToolX</div>
                     </div>
                 </div>
@@ -579,7 +580,7 @@
                         <i class="fas fa-code"></i>
                     </div>
                     <div class="card-header-text">
-                        <h2 class="card-title">脚本中心</h2>
+                        <h2 class="card-title" url="page/test-scriptx/test.html">脚本中心</h2>
                         <div class="card-subtitle">YT-ScriptX</div>
                     </div>
                 </div>
@@ -644,10 +645,12 @@
         
         // 添加产品中心点击事件
         document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', function(e) {
+            card.addEventListener('click', function(e) {               
                 if (!e.target.closest('.btn')) {
-                    const title = this.querySelector('.card-title').textContent;
-                    alert(`您选择了${title}，即将进入详细页面`);
+                    const title = this.querySelector('.card-title').textContent;                    
+                    const url = this.querySelector('.card-title').getAttribute("url");
+                    window.open(url,"_blank")
+                    // alert(`您选择了${title}，即将进入详细页面${url}`);
                 }
             });
         });

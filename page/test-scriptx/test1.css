@@ -1,8 +1,9 @@
-.echartsdiv{
+.mainDiv {
     float: left;
-    width: 100%;
-    height: 100%;
+    width: 98vw;
+    height: 98vh;
     border-bottom: 0px solid green;
-    background-color: #100c2a;
     color: #ffffff;
+    padding: 1vh 1vw 1vh 1vw;
+    background-color: #100c2a;
 }

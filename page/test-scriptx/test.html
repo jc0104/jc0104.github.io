@@ -13,31 +13,48 @@
 </head>
 
 <body>
-    <div id="eDiv1" class="echartsdiv">
-        1、loadPage(callback)   <br/>页面加载<br/><br/>
+    <div id="mainDiv" class="mainDiv">
+        变量：<br />
 
-        2、loadJS(scripts, callback, loadJStype)    <br/>动态加载js脚本<br/><br/>
+        1、webUrl <br />web访问地址，格式：http(s)://ip:端口/<br /><br />
+        2、scripts = [];<br />js脚本文件数组,路径相对于根目录开始不加/<br /><br />
+        3、css = [];<br />css样式文件数组,路径相对于根目录开始不加/<br /><br />
 
-        3、loadCSS(css, themeId, callback)  <br/>动态加载css<br/><br/>
+        <br />
+        <hr /><br />
+        方法：<br />
+        1、loadPage(callback) <br />页面加载<br /><br />
+        2、loadJS(scripts, callback, loadJStype) <br />动态加载js脚本<br /><br />
+        3、loadCSS(css, themeId, callback) <br />动态加载css<br /><br />
+        4、mergeUnique(...arrays) <br />多个一维数组合并去重<br /><br />
+        5、IsNull(Stra) <br />判断字符串是否为空或null或undefined，是返回"",否返回原字符串<br /><br />
+        6、getCurrentScriptPath() <br />获取当前脚本的访问路径<br /><br />
 
-        4、mergeUnique(...arrays)       <br/>多个一维数组合并去重<br/><br/>
+        <br />
+        <hr /><br />
+        样式：<br />
 
-        5、IsNull(Stra)   <br/>判断字符串是否为空或null或undefined，是返回"",否返回原字符串<br/><br/>
+
+        <br />
+        <hr /><br />
+        脚本：<br />
+        https://jc0104.github.io/YT-ScriptX/script/jquery/jquery-3.6.0.min.js<br /><br />
+        https://jc0104.github.io/YT-ScriptX/scriptx.js<br /><br />
     </div>
 </body>
 <script>
-    webUrl+="page/test-scriptx/"
+    webUrl += "page/test-scriptx/"
     css = [
-        webUrl+"test1.css",
-        webUrl+"test2.css"
+        webUrl + "test1.css",
+        webUrl + "test2.css"
     ];
     scripts = [
-        webUrl+"test1.js",
-        webUrl+"test2.js"
+        webUrl + "test1.js",
+        webUrl + "test2.js"
     ];
 
     loadPage(function () {
-        SN="【脚本中心】"
+        SN = " | 脚本中心"
         console.log(SN)
         // a();
     });
