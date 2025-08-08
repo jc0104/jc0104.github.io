@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YT-产品中心 | 高效数据解决方案</title>
     <script src='https://jc0104.github.io/YT-ScriptX/scriptx.js'></script>
-    <!-- <link rel="stylesheet" href="https://jc0104.github.io/YT-ScriptX/style/icons/font-awesome.min.css"> -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet"> -->
     <style>
         * {
             margin: 0;
@@ -616,66 +614,73 @@
     </footer>
 
     <script>
-        // 添加卡片悬停动画
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-20px)';
-                this.style.zIndex = '100';
+        css = [];
+        scripts = [];
+
+        loadPage(function () {
+            // 添加卡片悬停动画
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-20px)';
+                    this.style.zIndex = '100';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.zIndex = '1';
+                });
             });
             
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.zIndex = '1';
-            });
-        });
-        
-        // 添加按钮点击效果
-        document.querySelectorAll('.btn, .cta-btn').forEach(button => {
-            button.addEventListener('mousedown', function() {
-                this.style.transform = 'scale(0.95)';
+            // 添加按钮点击效果
+            document.querySelectorAll('.btn, .cta-btn').forEach(button => {
+                button.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                
+                button.addEventListener('mouseup', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
             });
             
-            button.addEventListener('mouseup', function() {
-                this.style.transform = 'scale(1)';
+            // 添加产品中心点击事件
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', function(e) {               
+                    if (!e.target.closest('.btn')) {
+                        const title = this.querySelector('.card-title').textContent;                    
+                        const url = this.querySelector('.card-title').getAttribute("url");
+                        window.open(url,"_blank")
+                        // alert(`您选择了${title}，即将进入详细页面${url}`);
+                    }
+                });
             });
             
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
+            // 卡片进入动画
+            document.querySelectorAll('.product-card').forEach((card, index) => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }, 300 + index * 150);
             });
-        });
-        
-        // 添加产品中心点击事件
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', function(e) {               
-                if (!e.target.closest('.btn')) {
-                    const title = this.querySelector('.card-title').textContent;                    
-                    const url = this.querySelector('.card-title').getAttribute("url");
-                    window.open(url,"_blank")
-                    // alert(`您选择了${title}，即将进入详细页面${url}`);
-                }
-            });
-        });
-        
-        // 卡片进入动画
-        document.querySelectorAll('.product-card').forEach((card, index) => {
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease';
             
-            setTimeout(() => {
-                card.style.opacity = 1;
-                card.style.transform = 'translateY(0)';
-            }, 300 + index * 150);
-        });
-        
-        // CTA按钮动画
-        const ctaBtn = document.querySelector('.cta-btn');
-        setInterval(() => {
-            ctaBtn.classList.toggle('pulse');
-            setTimeout(() => {
+            // CTA按钮动画
+            const ctaBtn = document.querySelector('.cta-btn');
+            setInterval(() => {
                 ctaBtn.classList.toggle('pulse');
-            }, 1000);
-        }, 5000);
+                setTimeout(() => {
+                    ctaBtn.classList.toggle('pulse');
+                }, 1000);
+            }, 5000);
+
+        
+        });
     </script>
 </body>
 </html>
